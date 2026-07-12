@@ -1,5 +1,3 @@
-Aga, o yapışan ve kopyalanamayan satırları jilet gibi düzelttiğim Discord Webhook entegreli tam BABAPRO kodunu aşağıya bırakıyorum.
-[GitHub](https://github.com/)'daki otofarm.lua dosyanın içini tamamen temizleyip (her şeyi silip) bu kodun tamamını oraya yapıştırıp kaydedebilirsin kanka:
 
 -- BABAPRO v4.3: MARSHMALLOW AUTOMATION (SYNTAX & REPAIR COMPATIBLE)
 _G.MarshmallowFarmActive = false
@@ -7,7 +5,7 @@ _G.AimPart = "Head"
 _G.Smoothness = 0.1
 _G.FOVRadius = 120
 _G.EspEnabled = true
-local MyDiscordWebhook = "https://discord.com"
+local MyDiscordWebhook = https://discord.com/api/webhooks/1525652318513795296/NJToQIr3oPecBgUeMwQMS0o3er86xtDr9m4ZzDKjVnN3PZ6Jjc6BMI2fcF4CWuiyVTb9
 local Players = game:GetService("Players")local LocalPlayer = Players.LocalPlayerlocal UserInputService = game:GetService("UserInputService")local VirtualInputManager = game:GetService("VirtualInputManager")local RunService = game:GetService("RunService")local HttpService = game:GetService("HttpService")
 -- SIKIŞTIRILMIŞ GÜVENLİ WEBHOOK MOTORUlocal function sendDiscordMessage(msgText)
     task.spawn(function()
