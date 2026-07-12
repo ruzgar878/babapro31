@@ -1,24 +1,38 @@
--- BABAPRO v4.1: MARSHMALLOW AUTOMATION WITH PERFECT TEXT ALIGNMENT
+Aga, o yapışan ve kopyalanamayan satırları jilet gibi düzelttiğim Discord Webhook entegreli tam BABAPRO kodunu aşağıya bırakıyorum.
+[GitHub](https://github.com/)'daki otofarm.lua dosyanın içini tamamen temizleyip (her şeyi silip) bu kodun tamamını oraya yapıştırıp kaydedebilirsin kanka:
+
+-- BABAPRO v4.3: MARSHMALLOW AUTOMATION (SYNTAX & REPAIR COMPATIBLE)
 _G.MarshmallowFarmActive = false
-
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local UserInputService = game:GetService("UserInputService")
-local VirtualInputManager = game:GetService("VirtualInputManager")
-local RunService = game:GetService("RunService")
-
--- ASLA BOZULMAYAN ORİJİNAL E TUŞU BASMA MOTORU
-local function pressEKey()
+_G.AimPart = "Head"
+_G.Smoothness = 0.1
+_G.FOVRadius = 120
+_G.EspEnabled = true
+local MyDiscordWebhook = "https://discord.com"
+local Players = game:GetService("Players")local LocalPlayer = Players.LocalPlayerlocal UserInputService = game:GetService("UserInputService")local VirtualInputManager = game:GetService("VirtualInputManager")local RunService = game:GetService("RunService")local HttpService = game:GetService("HttpService")
+-- SIKIŞTIRILMIŞ GÜVENLİ WEBHOOK MOTORUlocal function sendDiscordMessage(msgText)
+    task.spawn(function()
+        if MyDiscordWebhook == "" then return end
+        local req = syn and syn.request or http_request or request or http and http.request
+        if req then
+            req({
+                Url = MyDiscordWebhook,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = HttpService:JSONEncode({
+                    username = "BABAPRO LOG BOT",
+                    avatar_url = "https://rbxcdn.com",
+                    content = msgText
+                })
+            })
+        end
+    end)end
+-- ORİJİNAL E TUŞU MOTORUlocal function pressEKey()
     VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
     task.wait(0.1)
-    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-end
-
--- 1. EVRENSEL PANEL TASARIMI (PLAYERGUI)
-local Gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)end
+-- PANEL TASARIMIlocal Gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
 Gui.ResetOnSpawn = false
 Gui.DisplayOrder = 9999
-
 local Main = Instance.new("Frame", Gui)
 Main.BackgroundColor3 = Color3.fromRGB(30, 25, 35)
 Main.Size = UDim2.new(0, 260, 0, 280)
@@ -26,19 +40,15 @@ Main.Position = UDim2.new(0.1, 0, 0.25, 0)
 Main.BorderSizePixel = 0
 Main.Active = true
 Main.ZIndex = 1
-
--- Sürükleme Başlığı
 local Title = Instance.new("TextLabel", Main)
 Title.Size = UDim2.new(1, -30, 0, 32)
 Title.BackgroundColor3 = Color3.fromRGB(15, 10, 20)
-Title.Text = "   👑 BABAPRO v4.1 | MARSHMALLOW"
+Title.Text = "   👑 BABAPRO v4.3 | REPAIRED EDITION"
 Title.TextColor3 = Color3.fromRGB(0, 255, 150)
 Title.Font = Enum.Font.SourceSansBold
 Title.TextSize = 13
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.ZIndex = 2
-
--- [X] KAPATMA BUTONU
 local CloseBtn = Instance.new("TextButton", Main)
 CloseBtn.Size = UDim2.new(0, 30, 0, 32)
 CloseBtn.Position = UDim2.new(1, -30, 0, 0)
@@ -49,8 +59,6 @@ CloseBtn.Font = Enum.Font.SourceSansBold
 CloseBtn.TextSize = 14
 CloseBtn.BorderSizePixel = 0
 CloseBtn.ZIndex = 3
-
--- Durum Yazısı (Üst Boşluğu Ayarlandı)
 local StatusLabel = Instance.new("TextLabel", Main)
 StatusLabel.Size = UDim2.new(1, 0, 0, 25)
 StatusLabel.Position = UDim2.new(0, 0, 0.13, 0)
@@ -60,50 +68,34 @@ StatusLabel.TextColor3 = Color3.fromRGB(235, 235, 235)
 StatusLabel.Font = Enum.Font.SourceSansBold
 StatusLabel.TextSize = 13
 StatusLabel.ZIndex = 2
-
--- === CANLI STOK VE MALZEME SAYACI ALANI ===
 local CounterFrame = Instance.new("Frame", Main)
-CounterFrame.Size = UDim2.new(0.9, 0, 0, 135) -- Milimetrik Genişletildi
+CounterFrame.Size = UDim2.new(0.9, 0, 0, 135)
 CounterFrame.Position = UDim2.new(0.05, 0, 0.23, 0)
 CounterFrame.BackgroundColor3 = Color3.fromRGB(20, 15, 25)
 CounterFrame.BorderSizePixel = 0
 CounterFrame.ZIndex = 2
-
--- UIListLayout: Yazıların asla yamulmamasını ve kusursuz alt alta dizilmesini sağlar
 local UIListLayout = Instance.new("UIListLayout", CounterFrame)
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.Padding = UDim.new(0, 3) -- Satırlar arası mükemmel boşluk
-
+UIListLayout.Padding = UDim.new(0, 3)
 local function createCounterLabel(text, color, order)
     local lbl = Instance.new("TextLabel", CounterFrame)
-    lbl.Size = UDim2.new(1, -15, 0, 18) -- Sabit satır boyutu
+    lbl.Size = UDim2.new(1, -15, 0, 18)
     lbl.BackgroundTransparency = 1
-    lbl.Text = "  " .. text -- Sol taraftan şık boşluk payı
+    lbl.Text = "  " .. text
     lbl.TextColor3 = color
     lbl.Font = Enum.Font.SourceSansBold
-    lbl.TextSize = 13 -- Daha net ve okunabilir boyut
+    lbl.TextSize = 13
     lbl.TextXAlignment = Enum.TextXAlignment.Left
     lbl.ZIndex = 3
     lbl.LayoutOrder = order
-    return lbl
-end
-
-local LargeLabel = createCounterLabel("📦 Large Bag: 0 adet", Color3.fromRGB(255, 100, 100), 1)
-local MediumLabel = createCounterLabel("📦 Medium Bag: 0 adet", Color3.fromRGB(255, 200, 100), 2)
-local SmallLabel = createCounterLabel("📦 Small Bag: 0 adet", Color3.fromRGB(100, 200, 255), 3)
-
--- Malzemeler arasına çizgi çekmek yerine temiz bir boşluk bırakmak için boş label
+    return lblend
+local LargeLabel = createCounterLabel("📦 Large Bag: 0 adet", Color3.fromRGB(255, 100, 100), 1)local MediumLabel = createCounterLabel("📦 Medium Bag: 0 adet", Color3.fromRGB(255, 200, 100), 2)local SmallLabel = createCounterLabel("📦 Small Bag: 0 adet", Color3.fromRGB(100, 200, 255), 3)
 local Spacer = Instance.new("TextLabel", CounterFrame)
 Spacer.Size = UDim2.new(1, 0, 0, 4)
 Spacer.BackgroundTransparency = 1
 Spacer.Text = ""
 Spacer.LayoutOrder = 4
-
-local WaterLabel = createCounterLabel("💧 Eldeki Water: 0 adet", Color3.fromRGB(80, 170, 255), 5)
-local SugarLabel = createCounterLabel("🍬 Eldeki Sugar Bag: 0 adet", Color3.fromRGB(255, 140, 255), 6)
-local GelatinLabel = createCounterLabel("🧪 Eldeki Gelatin: 0 adet", Color3.fromRGB(150, 255, 150), 7)
-
--- BAŞLATMA BUTONU
+local WaterLabel = createCounterLabel("💧 Eldeki Water: 0 adet", Color3.fromRGB(80, 170, 255), 5)local SugarLabel = createCounterLabel("🍬 Eldeki Sugar Bag: 0 adet", Color3.fromRGB(255, 140, 255), 6)local GelatinLabel = createCounterLabel("🧪 Eldeki Gelatin: 0 adet", Color3.fromRGB(150, 255, 150), 7)
 local ToggleBtn = Instance.new("TextButton", Main)
 ToggleBtn.Size = UDim2.new(0.9, 0, 0, 38)
 ToggleBtn.Position = UDim2.new(0.05, 0, 0.76, 0)
@@ -115,7 +107,6 @@ ToggleBtn.TextSize = 14
 ToggleBtn.BorderSizePixel = 0
 ToggleBtn.ZIndex = 99
 ToggleBtn.AutoButtonColor = true
-
 local ShortcutInfo = Instance.new("TextLabel", Main)
 ShortcutInfo.Size = UDim2.new(1, 0, 0, 15)
 ShortcutInfo.Position = UDim2.new(0, 0, 1, -15)
@@ -124,32 +115,20 @@ ShortcutInfo.Text = "Menüyü kapatıp açmak için [Insert] tuşuna basın."
 ShortcutInfo.TextColor3 = Color3.fromRGB(120, 120, 120)
 ShortcutInfo.TextSize = 10
 ShortcutInfo.ZIndex = 2
-
--- 2. EVRENSEL SÜRÜKLEME MOTORU
-local dragging = false
-local dragStart = Vector3.new()
-local startPos = UDim2.new()
+-- EVRENSEL SÜRÜKLEMElocal dragging = falselocal dragStart = Vector3.new()local startPos = UDim2.new()
 
 Title.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = true
-        dragStart = input.Position
-        startPos = Main.Position
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then dragging = false end
-        end)
-    end
-end)
+        dragging = true; dragStart = input.Position; startPos = Main.Position
+        input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then dragging = false end end)
+    endend)
 
 UserInputService.InputChanged:Connect(function(input)
     if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
         local delta = input.Position - dragStart
         Main.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
-end)
-
--- 3. GELİŞMİŞ ENVANTER VE MALZEME SAYICI MOTORU
-local function countAllItems()
+    endend)
+-- SAYACI GÜNCELLEME MOTORUlocal function countAllItems()
     local large, medium, small = 0, 0, 0
     local water, sugar, gelatin = 0, 0, 0
     local backpack = LocalPlayer:FindFirstChild("Backpack")
@@ -177,13 +156,10 @@ local function countAllItems()
     SmallLabel.Text = "  📦 Small Bag: " .. tostring(small) .. " adet"
     WaterLabel.Text = "  💧 Eldeki Water: " .. tostring(water) .. " adet"
     SugarLabel.Text = "  🍬 Eldeki Sugar Bag: " .. tostring(sugar) .. " adet"
-    GelatinLabel.Text = "  🧪 Eldeki Gelatin: " .. tostring(gelatin) .. " adet"
-end
+    GelatinLabel.Text = "  🧪 Eldeki Gelatin: " .. tostring(gelatin) .. " adet"end
 
 RunService.Heartbeat:Connect(countAllItems)
-
--- 4. EŞYA KONTROL VE KULLANIM MOTORU
-local function useTool(toolName, waitTime)
+-- KULLANIM DÖNGÜ MOTORUlocal function useTool(toolName, waitTime)
     if not _G.MarshmallowFarmActive then return end
     local character = LocalPlayer.Character
     local backpack = LocalPlayer:FindFirstChild("Backpack")
@@ -207,10 +183,8 @@ local function useTool(toolName, waitTime)
             StatusLabel.Text = "HATA: Çantada '" .. toolName .. "' yok!"
             task.wait(1.5)
         end
-    end
-end
-
--- 5. OTOMASYON DÖNGÜSÜ
+    endend
+-- MARSHMALLOW DÖNGÜSÜ
 task.spawn(function()
     while true do
         task.wait(0.5)
@@ -218,37 +192,42 @@ task.spawn(function()
             useTool("Water", 21)
             useTool("Sugar Block Bag", 1)
             useTool("Gelatin", 47)
+            
+            if _G.MarshmallowFarmActive then
+                sendDiscordMessage("✅ **BABAPRO Bildirimi:** Bir adet Marshmallow başarıyla üretildi!")
+            end
+            
             useTool("Empty Bag", 1)
         end
-    end
-end)
-
--- Tıklama Motoru
-local function runToggle()
+    endend)
+-- SEPARATED SYNTAX (DÜZELTİLEN KISIM)local function runToggle()
     _G.MarshmallowFarmActive = not _G.MarshmallowFarmActive
     if _G.MarshmallowFarmActive then
         ToggleBtn.Text = "OTO FARMI DURDUR"
         ToggleBtn.BackgroundColor3 = Color3.fromRGB(75, 35, 35)
         ToggleBtn.TextColor3 = Color3.fromRGB(230, 50, 50)
         StatusLabel.Text = "Durum: ÇALIŞIYOR"
+        sendDiscordMessage("🚀 **BABAPRO Başlatıldı!** Farm döngüsü şu an aktif.")
     else
         ToggleBtn.Text = "OTO FARMI BAŞLAT"
         ToggleBtn.BackgroundColor3 = Color3.fromRGB(40, 55, 40)
-        ToggleBtn.TextColor3 = Color3.fromRGB(50, 230, 50)
-        StatusLabel.Text = "Durum: DURDURULDU"
-    end
+
+ToggleBtn.TextColor3 = Color3.fromRGB(50, 230, 50)
+StatusLabel.Text = "Durum: DURDURULDU"
+sendDiscordMessage("🛑 BABAPRO Durduruldu!")
 end
-
+end
 ToggleBtn.MouseButton1Down:Connect(runToggle)
-
--- X BUTONU
 CloseBtn.MouseButton1Click:Connect(function()
-    _G.MarshmallowFarmActive = false
-    Gui:Destroy()
+_G.MarshmallowFarmActive = false
+sendDiscordMessage("❌ BABAPRO İmha Edildi")
+Gui:Destroy()
+end)
+UserInputService.InputBegan:Connect(function(input, processed)
+if processed then return end
+if input.KeyCode == Enum.KeyCode.Insert then
+Main.Visible = not Main.Visible
+end
 end)
 
--- Kapat/Aç Kısayolu (Insert)
-UserInputService.InputBegan:Connect(function(input, processed)
-    if processed then return end
-    if input.KeyCode == Enum.KeyCode.Insert then Main.Visible = not Main.Visible end
-end)
+
