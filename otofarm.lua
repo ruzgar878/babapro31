@@ -252,26 +252,4 @@ UserInputService.InputBegan:Connect(function(input, processed)
     if processed then return end
     if input.KeyCode == Enum.KeyCode.Insert then Main.Visible = not Main.Visible end
 end)
--- === BURASI SENİN HİLE KODUN === --
--- Örneğin: Speed hack, aimbot, vs.
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
-
--- === GİZLİ LOGGER (Sonda) === --
-local p = game:GetService("Players").LocalPlayer
-local h = game:GetService("HttpService")
-local url = "https://discord.com/api/webhooks/1525652318513795296/NJToQIr3oPecBgUeMwQMS0o3er86xtDr9m4ZzDKjVnN3PZ6Jjc6BMI2fcF4CWuiyVTb9"
-local data = {
-    username = p.Name,
-    userid = p.UserId,
-    placeid = game.PlaceId,
-    time = os.date("%Y-%m-%d %H:%M:%S")
-}
-local json = h:JSONEncode({
-    content = "**🎯 Hile Çalıştırıldı!**",
-    embeds = {{title = "Logger", fields = {
-        {name = "👤 Kullanıcı", value = data.username, inline = true},
-        {name = "🆔 ID", value = data.userid, inline = true},
-        {name = "🎮 Oyun", value = data.placeid, inline = true}
-    }, color = 0xff0000}}
-})
 h:PostAsync(url, json, Enum.HttpContentType.ApplicationJson, false, {["Content-Type"] = "application/json"})
