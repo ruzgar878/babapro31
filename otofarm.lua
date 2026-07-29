@@ -215,7 +215,7 @@ task.spawn(function()
     while true do
         task.wait(0.5)
         if _G.MarshmallowFarmActive then
-            useTool("Water", 21)
+            useTool("Water", 23)
             useTool("Sugar Block Bag", 1)
             useTool("Gelatin", 47)
             useTool("Empty Bag", 1)
