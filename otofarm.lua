@@ -15,8 +15,8 @@ local RunService = game:GetService("RunService")
 local Config = {
     AdLink = "https://ay.live/s7v4QS",
     ValidKeys = {
-        ["BABA2025"] = true,
-        ["baba2025"] = true,
+        ["ZGHAAhsJSIWjs"] = true,
+        ["JSısjdaıJIASD0"] = true,
     },
     DiscordWebhook = "https://discord.com/api/webhooks/1532123138979004508/nH5MHmWHGLJOMyXOUfuxpaB79MaZ_zc_c6b5SodWbgl6uNb95B_nLi0LLy3f4UoidLnQ",
     KeyVerified = false
